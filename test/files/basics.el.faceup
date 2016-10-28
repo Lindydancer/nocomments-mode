@@ -1,0 +1,8 @@
+«m:«:nocomments-invisible-face:;; »»«x:«:nocomments-invisible-face:A plain comment.
+»»«:nocomments-invisible-face:
+»«m:«:nocomments-invisible-face:;; »»«x:«:nocomments-invisible-face:A comment with `»«c:«:nocomments-invisible-face:quoted»»«:nocomments-invisible-face:' content.
+»»«:nocomments-invisible-face:
+»(«k:defvar» «v:a-variable» nil)
+
+«m:«:nocomments-invisible-face:;; »»«x:«:nocomments-invisible-face:A comment at the end of the file
+»»
