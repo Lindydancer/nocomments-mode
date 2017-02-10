@@ -1,9 +1,9 @@
 ;;; nocomments-mode.el --- Minor mode that makes comments invisible.
 
-;; Copyright (C) 2016  Anders Lindgren
+;; Copyright (C) 2016-2017  Anders Lindgren
 
 ;; Author: Anders Lindgren
-;; Version: 0.0.0
+;; Version: 0.1.0
 ;; Created: 2016-05-23
 ;; URL: https://github.com/Lindydancer/nocomments-mode
 
@@ -24,9 +24,9 @@
 
 ;; Minor mode that can make all comments temporarily invisible.
 ;;
-;; In most situations, comments in a program are good. However,
+;; In most situations, comments in a program are good.  However,
 ;; exuberant use of comments may make it harder to follow the flow of
-;; the actual program. By temporarily making comments invisble, the
+;; the actual program.  By temporarily making comments invisble, the
 ;; program will stand out more clearly.
 ;;
 ;; "Invisible" in this context means that the comments will not be
@@ -58,12 +58,10 @@
 ;; Configuration:
 ;;
 ;; For convenience, you can bind a key to toggle the visibility of
-;; comment. For example, you can place the following in a suitable
+;; comment.  For example, you can place the following in a suitable
 ;; init file to make F12 toggle comments:
 ;;
 ;;     (global-set-key (kbd "<f12>") #'nocomments-mode)
-
-
 
 ;;; Code:
 
@@ -72,35 +70,13 @@
 ;; A naive approach, to reassign `font-lock-comment-face', doesn't
 ;; work when packages higlight things inside comment (like
 ;; `emacs-lisp-mode' mode does with quoted words). Instead, a
-;; font-lock keyword is used to search for comment, the rule prepends
-;; a new custom face in top of the the entire comment, hiding the
-;; comment and any extra highlighting it may contain.
-
-;; Problems:
-;;
-;; Technically, it's not possible to define a face that use the
-;; "default background" as both background and foreground. Instead,
-;; the actual background of the selected frame is used. This may lead
-;; to problems if the buffer is visible in multiple frames, and that
-;; the frames use different color schemes. (However, I doubt it will
-;; ever be a problem in real life.)
+;; font-lock keyword is used to search for comment, the rule sets the
+;; `display' property to display a space instead of the character and
+;; removes the `face' property.
 
 ;; -------------------------------------------------------------------
 ;; The modes.
 ;;
-
-
-(defgroup nocomments-mode nil
-  "Minor mode that makes all comments invisble."
-  :group 'faces)
-
-
-(defface nocomments-invisible-face
-  '((t))
-  "Face applied to comments when `nocomments-mode' is enabled.
-
-Note: Foreground and background are set when the mode is enabled."
-  :group 'nocomments-mode)
 
 
 (defun nocomments-beginning-of-comment ()
@@ -117,8 +93,8 @@ Note: Foreground and background are set when the mode is enabled."
 
 Also, include trailing newline and empty lines."
   (forward-comment 1)
-  ;; Include a bit more, to ensure that doxygen comments works
-  ;; properly, in case of custom highlighting.
+  ;; Include extra whitespace, to ensure that highlighting of, say,
+  ;; Doxygen comment blocks, are hidden properly.
   (while (progn (skip-syntax-forward " ")
                 (and (eolp)
                      (not (eobp))))
@@ -160,30 +136,42 @@ Also, include trailing newline and empty lines."
                                    (nocomments-end-of-comment)
                                    (point)))))
          start))
-     (0 'nocomments-invisible-face prepend))))
+     (0 (save-excursion
+          (goto-char (match-beginning 0))
+          (while (< (point) (match-end 0))
+            (let ((template (case (char-after)
+                              (?\t "\t")
+                              (?\n "\n")
+                              (t   " "))))
+              ;; Note: `concat' is needed to create a new string object.
+              (add-text-properties
+               (point) (+ (point) 1) (list 'display (concat template))))
+            ;; Remove the face property.  Without this, the background
+            ;; color of the face is used.
+            (remove-text-properties
+             (point) (+ (point) 1) '(face not-used))
+            (forward-char))
+          nil))))
+  "Font-lock keywords for command `nocomments-mode'.")
 
 
 ;;;###autoload
 (define-minor-mode nocomments-mode
   "Minor mode makes comment invisible.
 
-\"Invisible\" in this context means that comments will be painted
-in the same color as the background."
+\"Invisible\" in this context means that comments will not be
+visible, but they will still occupy space in the buffer."
   :group 'nocomment
   (if nocomments-mode
       (progn
+        (add-to-list 'font-lock-extra-managed-props 'display)
         (add-to-list 'font-lock-extend-region-functions
                      #'nocomments-extend-region-full-comment)
         (font-lock-add-keywords nil nocomments-font-lock-keywords 'append)
-        (setq font-lock-multiline t)
-        ;; Update the face. Note that this will not work when a user
-        ;; has multiple frames with different color settings.
-        (let ((color (frame-parameter (selected-frame) 'background-color)))
-          (set-face-foreground 'nocomments-invisible-face color)
-          (set-face-background 'nocomments-invisible-face color)))
-    ;; Note: `font-lock-multiline' is not restored. It may have gotten
-    ;; set by some other minor mode. Besides, it doesn't hurt keeping
-    ;; it set to t.
+        ;; Note: `font-lock-multiline' is not restored.  It may have
+        ;; gotten set by some other minor mode.  Besides, it doesn't
+        ;; hurt keeping it set to t.
+        (setq font-lock-multiline t))
     (setq font-lock-extend-region-functions
           (delq 'nocomments-extend-region-full-comment
                 font-lock-extend-region-functions))
@@ -206,4 +194,4 @@ in the same color as the background."
 
 (provide 'nocomments-mode)
 
-;;; nocomments-mode.el ends here
+;;; Nocomments-mode.el ends here

@@ -30,6 +30,14 @@
 ;; Note that this package assumes that some packages are located in
 ;; specific locations.
 
+;; Additional tests:
+;;
+;; - `nocomments-mode-test-misc' generates an example containing
+;;   comments with extra highlighting that use a background color, and
+;;   background overlays.  This is useful to check that
+;;   `nocomments-mode' work properly in that environment.
+;;   Unfortuantely, this test is not automatic.
+
 ;;; Code:
 
 (setq inhibit-startup-screen t)

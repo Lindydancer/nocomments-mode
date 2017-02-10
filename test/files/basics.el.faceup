@@ -1,8 +1,11 @@
-«m:«:nocomments-invisible-face:;; »»«x:«:nocomments-invisible-face:A plain comment.
-»»«:nocomments-invisible-face:
-»«m:«:nocomments-invisible-face:;; »»«x:«:nocomments-invisible-face:A comment with `»«c:«:nocomments-invisible-face:quoted»»«:nocomments-invisible-face:' content.
-»»«:nocomments-invisible-face:
+«(display):" ":;; A plain comment.»«(display):"
+":
+
+»«(display):" ":;; A comment with `quoted' content.»«(display):"
+":
+
 »(«k:defvar» «v:a-variable» nil)
 
-«m:«:nocomments-invisible-face:;; »»«x:«:nocomments-invisible-face:A comment at the end of the file
-»»
+«(display):" ":;; A comment at the end of the file»«(display):"
+":
+»

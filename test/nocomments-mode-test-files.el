@@ -31,6 +31,13 @@
 
 ;;; Code:
 
+;; Note: Due to a problem in `faceup', only a single `display' entry
+;; is emitted for each line, instead of one per character.
+;;
+;; Despite this, the test is retained (as it would find problems).
+;; However, the reference file must be regenerated when faceup has
+;; been corrected.
+
 (require 'faceup)
 
 (defvar nocomments-mode-test-dir (faceup-this-file-directory))
@@ -39,16 +46,23 @@
   "Test that FILE is fontified as the .faceup file describes.
 
 FILE is interpreted as relative to this source directory."
-  (faceup-test-font-lock-file '(emacs-lisp-mode
-                                nocomments-mode)
-                              (concat
-                               nocomments-mode-test-dir
-                               file)))
+  (let ((faceup-properties '(face display)))
+    (faceup-test-font-lock-file '(emacs-lisp-mode
+				  nocomments-mode)
+				(concat
+				 nocomments-mode-test-dir
+				 file))))
 (faceup-defexplainer nocomments-mode-test-file)
 
 
 (ert-deftest nocomments-mode-test-files ()
   (should (nocomments-mode-test-file "files/basics.el")))
+
+(defun nocomments-mode-test-facup-write-file ()
+  "Like `faceup-write-file' but include the `display' property."
+  (interactive)
+  (let ((faceup-properties '(face display)))
+    (call-interactively #'faceup-write-file)))
 
 (provide 'nocomments-mode-test-files)
 

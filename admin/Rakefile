@@ -2,6 +2,8 @@
 # Common tasks
 #
 
+require("../../../admin/rakehelper.rb")
+
 desc "Generate README.md"
 task "readme" do
   sh "emacs", "-batch", "-l", "../../el2markdown/el2markdown.el",
@@ -11,12 +13,4 @@ end
 desc "Generating html"
 task "html" => ["readme"] do
   sh "Markdown.pl ../README.md > ../README.html"
-end
-
-desc "Test install"
-task "install" do
-  mkdir_p "tmp"
-  ENV["HOME"] = File.join(Dir.pwd, "tmp")
-  sh "emacs", "-batch", "--eval",
-     '(package-install-file "../nocomments-mode.el")'
 end
