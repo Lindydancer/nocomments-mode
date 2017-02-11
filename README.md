@@ -1,7 +1,7 @@
 # nocomments-mode - Minor mode that makes comments invisible
 
 *Author:* Anders Lindgren<br>
-*Version:* 0.1.0<br>
+*Version:* 0.1.1<br>
 *URL:* [https://github.com/Lindydancer/nocomments-mode](https://github.com/Lindydancer/nocomments-mode)<br>
 
 Minor mode that can make all comments temporarily invisible.

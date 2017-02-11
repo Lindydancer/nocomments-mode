@@ -3,7 +3,7 @@
 ;; Copyright (C) 2016-2017  Anders Lindgren
 
 ;; Author: Anders Lindgren
-;; Version: 0.1.0
+;; Version: 0.1.1
 ;; Created: 2016-05-23
 ;; URL: https://github.com/Lindydancer/nocomments-mode
 
@@ -139,10 +139,11 @@ Also, include trailing newline and empty lines."
      (0 (save-excursion
           (goto-char (match-beginning 0))
           (while (< (point) (match-end 0))
-            (let ((template (case (char-after)
-                              (?\t "\t")
-                              (?\n "\n")
-                              (t   " "))))
+            (let* ((ch (char-after))
+                   (template (cond
+                              ((eq ch ?\t) "\t")
+                              ((eq ch ?\n) "\n")
+                              (t           " "))))
               ;; Note: `concat' is needed to create a new string object.
               (add-text-properties
                (point) (+ (point) 1) (list 'display (concat template))))
