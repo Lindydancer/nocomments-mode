@@ -1,14 +1,14 @@
 # nocomments-mode - Minor mode that makes comments invisible
 
 *Author:* Anders Lindgren<br>
-*Version:* 0.1.1<br>
+*Version:* 0.1.2<br>
 *URL:* [https://github.com/Lindydancer/nocomments-mode](https://github.com/Lindydancer/nocomments-mode)<br>
 
 Minor mode that can make all comments temporarily invisible.
 
 In most situations, comments in a program are good.  However,
 exuberant use of comments may make it harder to follow the flow of
-the actual program.  By temporarily making comments invisble, the
+the actual program.  By temporarily making comments invisible, the
 program will stand out more clearly.
 
 "Invisible" in this context means that the comments will not be

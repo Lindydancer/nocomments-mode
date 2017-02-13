@@ -3,7 +3,7 @@
 ;; Copyright (C) 2016-2017  Anders Lindgren
 
 ;; Author: Anders Lindgren
-;; Version: 0.1.1
+;; Version: 0.1.2
 ;; Created: 2016-05-23
 ;; URL: https://github.com/Lindydancer/nocomments-mode
 
@@ -26,7 +26,7 @@
 ;;
 ;; In most situations, comments in a program are good.  However,
 ;; exuberant use of comments may make it harder to follow the flow of
-;; the actual program.  By temporarily making comments invisble, the
+;; the actual program.  By temporarily making comments invisible, the
 ;; program will stand out more clearly.
 ;;
 ;; "Invisible" in this context means that the comments will not be
@@ -68,7 +68,7 @@
 ;; Implementation:
 ;;
 ;; A naive approach, to reassign `font-lock-comment-face', doesn't
-;; work when packages higlight things inside comment (like
+;; work when packages highlight things inside comment (like
 ;; `emacs-lisp-mode' mode does with quoted words). Instead, a
 ;; font-lock keyword is used to search for comment, the rule sets the
 ;; `display' property to display a space instead of the character and
@@ -195,4 +195,4 @@ visible, but they will still occupy space in the buffer."
 
 (provide 'nocomments-mode)
 
-;;; Nocomments-mode.el ends here
+;;; nocomments-mode.el ends here
