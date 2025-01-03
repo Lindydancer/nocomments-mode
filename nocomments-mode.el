@@ -1,9 +1,9 @@
-;;; nocomments-mode.el --- Minor mode that makes comments invisible.
+;;; nocomments-mode.el --- Minor mode that makes comments invisible.  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2016-2017  Anders Lindgren
 
 ;; Author: Anders Lindgren
-;; Version: 0.1.2
+;; Version: 0.1.3
 ;; Created: 2016-05-23
 ;; URL: https://github.com/Lindydancer/nocomments-mode
 
@@ -158,7 +158,7 @@ Also, include trailing newline and empty lines."
 
 ;;;###autoload
 (define-minor-mode nocomments-mode
-  "Minor mode makes comment invisible.
+  "Minor mode that makes comment invisible.
 
 \"Invisible\" in this context means that comments will not be
 visible, but they will still occupy space in the buffer."

@@ -1,4 +1,4 @@
-;;; nocomments-mode-test-files.el --- Test for nocomments-mode.
+;;; nocomments-mode-test-files.el --- `nocomments-mode' file tests.  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2016 Anders Lindgren
 

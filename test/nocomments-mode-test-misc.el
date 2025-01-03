@@ -1,4 +1,4 @@
-;;; nocomments-mode-test-misc.el --- Misc test for nocomments-mode.
+;;; nocomments-mode-test-misc.el --- `nocomments-mode' misc tests.  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 

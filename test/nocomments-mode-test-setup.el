@@ -1,4 +1,4 @@
-;;; nocomments-mode-test-setup.el --- Setup and execute all tests.
+;;; nocomments-mode-test-setup.el --- Setup and execute all tests.  -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 

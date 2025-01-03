@@ -1,4 +1,4 @@
-;; nocomments-mode-screenshot-setup.el --- prepare Emacs for screenshot.
+;; nocomments-mode-screenshot-setup.el --- Prepare for screenshot.  -*- lexical-binding: t; -*-
 
 ;; Usage:
 ;;
